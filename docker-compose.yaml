@@ -1,0 +1,27 @@
+services:
+  namenode:
+    image: bde2020/hadoop-base:latest
+    platform: linux/amd64
+    volumes:
+      - hadoop-namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    ports:
+      - 9870:9870
+
+  datanode:
+    image: bde2020/hadoop-base:latest
+    platform: linux/amd64
+    volumes:
+      - hadoop-data:/hadoop/dfs/data
+    environment:
+      - HDFS_CONF_dfs_data_dir_list=/hadoop/dfs/data
+      - HDFS_CONF_dfs_datanode_use_datanode_hostname=true
+    depends_on:
+      - namenode
+
+volumes:
+  hadoop-data:
+    external: true
+  hadoop-namenode:
+    external: true

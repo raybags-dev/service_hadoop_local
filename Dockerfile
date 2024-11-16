@@ -1,0 +1,1 @@
+FROM bde2020/hadoop-base:latest
